@@ -7,6 +7,9 @@
 
         <title>{{ config('app.name', 'Medicion de Servicios') }}</title>
 
+        <link rel="icon" href="{{ asset('favicon-uniguajira.webp') }}" type="image/webp">
+        <link rel="apple-touch-icon" href="{{ asset('favicon-uniguajira.webp') }}">
+
         @php
             $navbarCssPath = public_path('assets/css/components/navbar.css');
             $sidebarCssPath = public_path('assets/css/components/sidebar.css');

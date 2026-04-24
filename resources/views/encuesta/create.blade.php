@@ -14,7 +14,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Encuesta de satisfaccion</title>
+        <title>Encuesta de satisfaccion - {{ config('app.name', 'Medicion de Servicios') }}</title>
+
+        <link rel="icon" href="{{ asset('favicon-uniguajira.webp') }}" type="image/webp">
+        <link rel="apple-touch-icon" href="{{ asset('favicon-uniguajira.webp') }}">
 
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/encuesta/formulario.js'])
