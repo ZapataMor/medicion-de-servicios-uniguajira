@@ -648,10 +648,10 @@ class ServicioReportes
      *          indicador_porcentaje: float
      *      }>,
      *      summary: array{
-     *          usuarios_satisfechos: int,
-     *          usuarios_insatisfechos: int,
-     *          usuarios_neutros: int,
-     *          total: int,
+     *          usuarios_satisfechos: float,
+     *          usuarios_insatisfechos: float,
+     *          usuarios_neutros: float,
+     *          total: float,
      *          mejora: float,
      *          indicador: float,
      *          mejora_porcentaje: float,
@@ -686,12 +686,25 @@ class ServicioReportes
             ];
         }
 
-        $summarySatisfied = (int) array_sum(array_column($rows, 'usuarios_satisfechos'));
-        $summaryDissatisfied = (int) array_sum(array_column($rows, 'usuarios_insatisfechos'));
-        $summaryNeutral = (int) array_sum(array_column($rows, 'usuarios_neutros'));
-        $summaryTotal = (int) array_sum(array_column($rows, 'total'));
-        $summaryMejora = $summaryTotal > 0 ? round($summaryNeutral / $summaryTotal, 5) : 0.0;
-        $summaryIndicador = $summaryTotal > 0 ? round($summarySatisfied / $summaryTotal, 5) : 0.0;
+        $questionCount = count($rows);
+        $summarySatisfied = $questionCount > 0
+            ? round(array_sum(array_column($rows, 'usuarios_satisfechos')) / $questionCount, 2)
+            : 0.0;
+        $summaryDissatisfied = $questionCount > 0
+            ? round(array_sum(array_column($rows, 'usuarios_insatisfechos')) / $questionCount, 2)
+            : 0.0;
+        $summaryNeutral = $questionCount > 0
+            ? round(array_sum(array_column($rows, 'usuarios_neutros')) / $questionCount, 2)
+            : 0.0;
+        $summaryTotal = $questionCount > 0
+            ? round(array_sum(array_column($rows, 'total')) / $questionCount, 2)
+            : 0.0;
+        $summaryMejora = $questionCount > 0
+            ? round(array_sum(array_column($rows, 'mejora')) / $questionCount, 5)
+            : 0.0;
+        $summaryIndicador = $questionCount > 0
+            ? round(array_sum(array_column($rows, 'indicador')) / $questionCount, 5)
+            : 0.0;
 
         return [
             'rows' => $rows,

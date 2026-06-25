@@ -113,7 +113,32 @@ class ReportesEstadisticosTest extends TestCase
         $this->assertSame(2, $programRows[$programa->nombre]['encuestas']);
         $this->assertSame(1, $programRows['Sin programa']['encuestas']);
 
+        $measurementSummary = $report['tables']['measurement_consolidated']['summary'];
+        $this->assertEquals(1.8, $measurementSummary['usuarios_satisfechos']);
+        $this->assertEquals(0.4, $measurementSummary['usuarios_neutros']);
+        $this->assertEquals(0.8, $measurementSummary['usuarios_insatisfechos']);
+        $this->assertEquals(3.0, $measurementSummary['total']);
+        $this->assertEquals(60.0, $measurementSummary['indicador_porcentaje']);
         $this->assertEquals(60.0, $report['indicators']['global']['satisfaction_percentage']);
+
+        $renderedExport = view('reportes.exportar', [
+            'chartImages' => [
+                'population_by_program' => '',
+                'population_by_estamento' => '',
+                'services' => '',
+                'question_results' => array_fill(0, 5, ''),
+                'satisfied_users_percentage' => '',
+            ],
+            'contextRows' => [],
+            'description' => 'Reporte general',
+            'printFallback' => false,
+            'report' => $report,
+            'reportType' => 'general',
+            'signature' => null,
+            'title' => 'Reporte general',
+        ])->render();
+
+        $this->assertStringContainsString('<strong>Promedio</strong>', $renderedExport);
 
         $processFiltered = $service->generate('process', '2026-01-01', '2026-01-31', $serviceA->id_proceso);
         $this->assertSame(2, $processFiltered['totals']['survey_count']);

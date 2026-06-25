@@ -458,11 +458,11 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="2"><strong>Total</strong></td>
-                            <td><strong>{{ $consolidated['summary']['usuarios_satisfechos'] ?? 0 }}</strong></td>
-                            <td><strong>{{ $consolidated['summary']['usuarios_neutros'] ?? 0 }}</strong></td>
-                            <td><strong>{{ $consolidated['summary']['usuarios_insatisfechos'] ?? 0 }}</strong></td>
-                            <td><strong>{{ $consolidated['summary']['total'] ?? 0 }}</strong></td>
+                            <td colspan="2"><strong>Promedio</strong></td>
+                            <td><strong>{{ $formatValue($consolidated['summary']['usuarios_satisfechos'] ?? 0) }}</strong></td>
+                            <td><strong>{{ $formatValue($consolidated['summary']['usuarios_neutros'] ?? 0) }}</strong></td>
+                            <td><strong>{{ $formatValue($consolidated['summary']['usuarios_insatisfechos'] ?? 0) }}</strong></td>
+                            <td><strong>{{ $formatValue($consolidated['summary']['total'] ?? 0) }}</strong></td>
                             <td><strong>{{ $formatValue($consolidated['summary']['indicador_porcentaje'] ?? 0) }}%</strong></td>
                         </tr>
                     </tbody>
